@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>头部</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/jquery.mCustomScrollbar.concat.min.js"></script>
+</head>
+<body>
+	<header>
+     <ul class="rt_nav">
+     <if condition="$username eq ''">
+        <li><a href="{:U('Login/index')}" class="admin_icon" target="_top">登录</a></li>
+    <else/>
+
+      <li><a href="{:U('index/main')}" target="main-frame" class="website_icon">首页</a></li>
+      <li><a href="{:U('Login/logout')}" class="quit_icon" target="_top">安全退出</a></li>
+      </if>
+      
+     </ul>
+    </header>
+</body>
+</html>

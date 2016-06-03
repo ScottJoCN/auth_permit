@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>主页</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+	<link href="__PUBLIC__/css/bootstrap.min.css" rel="stylesheet">
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/bootstrap.min.js"></script>
+</head>
+
+<body style="margin:0px;padding:0px;">
+<include file="index/header" />
+<div class="page_title" style="margin-top:50px;">
+   <h2 class="fl">用户列表</h2>
+   <a class="fr top_rt_btn" style="margin-right:10px;margin-top:4px;" href="{:U('admin/add')}">新增</a>
+</div>
+<table class="table" style="text-align:center">
+    <tr>
+        <th>ID</th>
+        <th>用户名</th>
+        <th>所属用户组</th>
+        <th>最后登录IP</th>
+        <th>最后登录时间</th>
+        <th>操作管理</th>
+    </tr>
+    <foreach name="adminData2" item="va">
+    <tr>
+        <td>{$va.id}</td>
+        <td>{$va.uname}</td>
+        <td>{$va.group_name}</td>
+        <td>{$va.last_login_ip}</td>
+        <td>
+            <if condition="$va.last_login_time neq '' ">
+                {$va.last_login_time|date="Y-m-d H:m:s",###}
+            </if>
+        </td>
+        <td>
+		
+        <a href="__URL__/edit/id/{$va.id}" >编辑</a>
+        
+		<a onclick="if(confirm('确认要删除吗?')){location.href = '{:U("Admin/delete",array("id"=>$va["id"]))}';}">删除</a>
+		
+<!--         <a href="#" class="inner_btn">表内按钮</a> -->
+        </td>
+    </tr>
+    </foreach>
+
+</table>
+</body>
+</html>

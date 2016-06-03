@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>添加权限</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/jquery.mCustomScrollbar.concat.min.js"></script>
+</head>
+<body>
+<section style="margin:20px;">
+<h2><strong style="color:grey;">添加权限</strong></h2>
+	<form action="{:U('auth/insert')}" method="post">
+	<ul class="ulColumn2">
+		<li>
+			<span class="item_name" style="width:120px;">权限名</span>
+			<input type="text" class="textbox textbox_295" placeholder="" name="auth_name"/>
+		</li>
+
+		<li>
+			<span class="item_name" style="width:120px;">控制器名</span>
+			<input type="text" class="textbox textbox_295" placeholder="" name="auth_c"/>
+		</li>
+
+		<li>
+			<span class="item_name" style="width:120px;">控制器视图</span>
+			<input type="text" class="textbox textbox_295" placeholder="" name="auth_a"/>
+		</li>
+
+		<li>
+			<span class="item_name" style="width:120px;">权限分类</span>
+			<select class="select" name="auth_pid">
+				<option value="0">顶级分类</option>
+				<foreach item="v" name="auth_f_name">
+					<option value="{$v.auth_id}">{$v.auth_name}</option>
+				</foreach>
+			</select>
+		</li>
+
+		<li>
+			<span class="item_name" style="width:120px;"></span>
+			<input type="submit" class="link_btn"/>
+		</li>
+	</ul>
+	</form>
+</section>
+</body>
+</html>

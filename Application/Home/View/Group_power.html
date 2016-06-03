@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>分配权限</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/jquery.mCustomScrollbar.concat.min.js"></script>
+</head>
+<body>
+<div class="page_title">
+   <h2 class="fl">分配权限</h2>
+</div>
+<form action="{:U('group/powerin')}" method="post">
+	<div style="margin:60px;">
+		<select class="select" name="groupid">
+			<foreach name="gdata" item="vg">
+				<option value="{$vg.group_id}">{$vg.group_name}</option>
+			</foreach>
+		</select>
+	</div>
+
+	<table class="table" style="width:80%;margin:30px;">
+		<foreach name="pdata" item="vpdata">
+		<tr>
+			<td>{$vpdata.auth_id}{$vpdata.auth_name}</td>
+			<td>
+				<foreach name="apdata" item="va">
+					<if condition="$va['auth_pid'] eq $vpdata['auth_id']">
+						<span style="margin-right:8px;"><input type="checkbox" name="auth_id[]" value="{$va.auth_id}">{$va.auth_id}{$va.auth_name}</span>
+					</if>
+				</foreach>
+			</td>
+		</tr>
+		</foreach>
+	</table>
+	<div>
+		<span class="item_name" style="width:120px;"></span>
+		<input type="submit" class="link_btn" value="分配权限" />
+	</div>
+</form>
+</body>
+</html>
