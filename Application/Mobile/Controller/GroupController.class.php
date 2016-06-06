@@ -7,6 +7,22 @@ class GroupController extends BaseController {
         $this->auth = M("auth");
     }
     public function index(){
+            $username = session('username');
+            $this->assign('username',$username);
+            $adminM2 = M();
+            $adminData2 = $adminM2->table("df_admin a,df_group g")->where("a.group_id=g.group_id && a.uname='".$username."'")->field("a.id,a.uname,a.group_id,g.group_name,g.group_auth")->find();
+            $getauth2 = $adminData2['group_auth'];
+            $getauth_arr2 = explode(",", $getauth2);
+            $this->assign("getauth_arr2",$getauth_arr2);
+
+            $this->assign("adminData2",$adminData2);
+
+            $pdata2 = $this->auth->field("auth_id,auth_name")->where("auth_pid=0")->select();
+            $this->assign("pdata2",$pdata2);
+
+            $apdata2 = $this->auth->where("auth_level=1")->select();
+            $this->assign("apdata2",$apdata2);
+        //
         $gdata = $this->group->select();
         $this->assign("gdata",$gdata);
         $this->display();
@@ -22,6 +38,22 @@ class GroupController extends BaseController {
     }
     /*权限分配页面*/
     public function power(){
+            $username = session('username');
+            $this->assign('username',$username);
+            $adminM2 = M();
+            $adminData2 = $adminM2->table("df_admin a,df_group g")->where("a.group_id=g.group_id && a.uname='".$username."'")->field("a.id,a.uname,a.group_id,g.group_name,g.group_auth")->find();
+            $getauth2 = $adminData2['group_auth'];
+            $getauth_arr2 = explode(",", $getauth2);
+            $this->assign("getauth_arr2",$getauth_arr2);
+
+            $this->assign("adminData2",$adminData2);
+
+            $pdata2 = $this->auth->field("auth_id,auth_name")->where("auth_pid=0")->select();
+            $this->assign("pdata2",$pdata2);
+
+            $apdata2 = $this->auth->where("auth_level=1")->select();
+            $this->assign("apdata2",$apdata2);
+        //
         $gdata = $this->group->order("group_id desc")->select();
         $this->assign("gdata",$gdata);
         $pdata = $this->auth->field("auth_id,auth_name")->where("auth_pid=0")->select();
@@ -57,6 +89,22 @@ class GroupController extends BaseController {
                 $this->error("更改失败");
             }
         }else{
+            $username = session('username');
+            $this->assign('username',$username);
+            $adminM2 = M();
+            $adminData2 = $adminM2->table("df_admin a,df_group g")->where("a.group_id=g.group_id && a.uname='".$username."'")->field("a.id,a.uname,a.group_id,g.group_name,g.group_auth")->find();
+            $getauth2 = $adminData2['group_auth'];
+            $getauth_arr2 = explode(",", $getauth2);
+            $this->assign("getauth_arr2",$getauth_arr2);
+
+            $this->assign("adminData2",$adminData2);
+
+            $pdata2 = $this->auth->field("auth_id,auth_name")->where("auth_pid=0")->select();
+            $this->assign("pdata2",$pdata2);
+
+            $apdata2 = $this->auth->where("auth_level=1")->select();
+            $this->assign("apdata2",$apdata2);
+            //
             // 编辑组权限页面
             $gdata = $this->group->order("group_id desc")->select();
             $this->assign("gdata",$gdata);
@@ -105,6 +153,24 @@ class GroupController extends BaseController {
                  $this->error("更新失败");
             }
         }else{
+            $username = session('username');
+            $this->assign('username',$username);
+            $adminM2 = M();
+            $adminData2 = $adminM2->table("df_admin a,df_group g")->where("a.group_id=g.group_id && a.uname='".$username."'")->field("a.id,a.uname,a.group_id,g.group_name,g.group_auth")->find();
+            $getauth2 = $adminData2['group_auth'];
+            $getauth_arr2 = explode(",", $getauth2);
+            $this->assign("getauth_arr2",$getauth_arr2);
+
+            $this->assign("adminData2",$adminData2);
+
+            $pdata2 = $this->auth->field("auth_id,auth_name")->where("auth_pid=0")->select();
+            $this->assign("pdata2",$pdata2);
+
+            $apdata2 = $this->auth->where("auth_level=1")->select();
+            $this->assign("apdata2",$apdata2);
+            //
+
+
             $id = I("get.id");
             $group = $this->group->where("group_id=$id")->find();
             $this->assign("group",$group);

@@ -12,22 +12,24 @@ class AdminController extends BaseController {
             $username = session('username');
             $this->assign('username',$username);
             $adminM = M();
-            $adminData = $adminM->table("df_admin a,df_group g")->where("a.group_id=g.group_id && a.uname='".$username."'")->field("a.id,a.uname,a.group_id,g.group_name,g.group_auth")->find();
-            $getauth = $adminData['group_auth'];
-            $getauth_arr = explode(",", $getauth);
-            $this->assign("getauth_arr",$getauth_arr);
+            $adminData2 = $adminM->table("df_admin a,df_group g")->where("a.group_id=g.group_id && a.uname='".$username."'")->field("a.id,a.uname,a.group_id,g.group_name,g.group_auth")->find();
+            $this->assign("adminData2",$adminData2);
+            
+            $getauth2 = $adminData2['group_auth'];
+            $getauth_arr2 = explode(",", $getauth2);
+            $this->assign("getauth_arr2",$getauth_arr2);
 
-            $this->assign("adminData",$adminData);
+           
 
-            $pdata = $this->auth->field("auth_id,auth_name")->where("auth_pid=0")->select();
-            $this->assign("pdata",$pdata);
+            $pdata2 = $this->auth->field("auth_id,auth_name")->where("auth_pid=0")->select();
+            $this->assign("pdata2",$pdata2);
 
-            $apdata = $this->auth->where("auth_level=1")->select();
-            $this->assign("apdata",$apdata);
-			
-			$adminData2 = $this->admin->join("left join df_group on df_admin.group_id= df_group.group_id")->select();
+            $apdata2 = $this->auth->where("auth_level=1")->select();
+            $this->assign("apdata2",$apdata2);
+			//
+			$adminData = $this->admin->join("left join df_group on df_admin.group_id= df_group.group_id")->select();
         
-			$this->assign("adminData2",$adminData2);
+			$this->assign("adminData",$adminData);
 			$this->display();
         }else{
 			$this->msg("请先登录！",U('Login/index'));

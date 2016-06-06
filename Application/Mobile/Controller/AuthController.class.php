@@ -6,6 +6,23 @@ class AuthController extends BaseController {
         $this->auth = M("auth");
     }
     public function index(){
+        $username = session('username');
+        $this->assign('username',$username);
+        $adminM2 = M();
+        $adminData2 = $adminM2->table("df_admin a,df_group g")->where("a.group_id=g.group_id && a.uname='".$username."'")->field("a.id,a.uname,a.group_id,g.group_name,g.group_auth")->find();
+        $getauth2 = $adminData2['group_auth'];
+        $getauth_arr2 = explode(",", $getauth2);
+        $this->assign("getauth_arr2",$getauth_arr2);
+
+        $this->assign("adminData2",$adminData2);
+
+        $pdata2 = $this->auth->field("auth_id,auth_name")->where("auth_pid=0")->select();
+        $this->assign("pdata2",$pdata2);
+
+        $apdata2 = $this->auth->where("auth_level=1")->select();
+        $this->assign("apdata2",$apdata2);
+
+        //
         //$cate = $this->auth->select();
         $count = $this->auth->count();
         $Page  = new \Think\Page($count,10);
@@ -15,7 +32,9 @@ class AuthController extends BaseController {
         $Page -> setConfig('next','>');
         $Page -> setConfig('first','第一页');
         $Page -> setConfig('last','...%TOTAL_PAGE%');
-        /*$Page ->setConfig('theme',' %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %NOW_PAGE% / %TOTAL_PAGE% ');*/
+        $Page ->setConfig('theme',' <nav>
+  <ul class="pagination"> <li>%UP_PAGE%</li> <li>%LINK_PAGE%</li> <li>%DOWN_PAGE%</li> ');
+        
         $show  = $Page->show();
         $list = $this->auth->limit($Page->firstRow.','.$Page->listRows)->select();
         $this->assign('adata',$list);// 赋值数据集
@@ -26,6 +45,23 @@ class AuthController extends BaseController {
     }
     // 添加权限页面
     public function add(){
+        //头部信息获取
+            $username = session('username');
+            $this->assign('username',$username);
+            $adminM2 = M();
+            $adminData2 = $adminM2->table("df_admin a,df_group g")->where("a.group_id=g.group_id && a.uname='".$username."'")->field("a.id,a.uname,a.group_id,g.group_name,g.group_auth")->find();
+            $getauth2 = $adminData2['group_auth'];
+            $getauth_arr2 = explode(",", $getauth2);
+            $this->assign("getauth_arr2",$getauth_arr2);
+
+            $this->assign("adminData2",$adminData2);
+
+            $pdata2 = $this->auth->field("auth_id,auth_name")->where("auth_pid=0")->select();
+            $this->assign("pdata2",$pdata2);
+
+            $apdata2 = $this->auth->where("auth_level=1")->select();
+            $this->assign("apdata2",$apdata2);
+            //
         $auth_f_name = $this->auth->where("auth_pid=0")->select();
         $this->assign("auth_f_name",$auth_f_name);
         $this->display();
@@ -60,6 +96,22 @@ class AuthController extends BaseController {
                 $this->error("更新失败");
             }
         }else{
+            $username = session('username');
+            $this->assign('username',$username);
+            $adminM2 = M();
+            $adminData2 = $adminM2->table("df_admin a,df_group g")->where("a.group_id=g.group_id && a.uname='".$username."'")->field("a.id,a.uname,a.group_id,g.group_name,g.group_auth")->find();
+            $getauth2 = $adminData2['group_auth'];
+            $getauth_arr2 = explode(",", $getauth2);
+            $this->assign("getauth_arr2",$getauth_arr2);
+
+            $this->assign("adminData2",$adminData2);
+
+            $pdata2 = $this->auth->field("auth_id,auth_name")->where("auth_pid=0")->select();
+            $this->assign("pdata2",$pdata2);
+
+            $apdata2 = $this->auth->where("auth_level=1")->select();
+            $this->assign("apdata2",$apdata2);
+            //
             $id = I("get.id");
             $auth_f_name = $this->auth->where("auth_pid=0")->select();
             $this->assign("auth_f_name",$auth_f_name);
